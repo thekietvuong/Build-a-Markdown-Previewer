@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build a Markdown Previewer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="./marked.js"></script>
+    
+</head>
+
+<body>
+    <div class="container-fluid bg-success">
+        <div class="row">
+            <div class="col text-center text-white my-3">
+                <h1>Markdown Previewer</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 bg-primary d-flex flex-column">
+                <h2 class="text-white text-center my-3">The Editor</h2>
+                <div class="form-group flex-grow-1 d-flex flex-column">
+                    <textarea 
+                        id="editor" 
+                        onkeyup="updatePreview()"
+                        class="form-control flex-grow-1"
+                    ></textarea>
+                </div>
+            </div>
+            <div class="col-6 bg-danger">
+                <h2 class="text-white text-center my-3">Preview </h2>
+                <div id="preview"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    <script>
+        document.onload = setDeault();
+        function setDeault(){
+            let defaultText = `\
+# Welcome to my React Markdown Previewer!  
+## This is a sub-heading...  
+[Learn more about TK channel](https://www.youtube.com/channel/UCMHlhjLjBa-1txotColRXgw)  
+
+<dl>  
+<dt>Definition List</dt>  
+<dd>Is something people use sometimes</dd>  
+<dt>Markdown in HTML</dt>  
+<dd>Does *not* work **very well**</dd>  
+</dl>  
+
+
+\`This is an example of inline code\`  
+
+\`\`\`
+function example(){
+    return multilineCodeBlock;
+}
+\`\`\`
+
+- This  
+- is  
+- an  
+- example  
+- of  
+- list  
+- items  
+
+>This is an example of block quote  
+[![Alt text](https://marinegeo.github.io/assets/img/MarineGEO_logo.png)  
+**is**  
+            `;
+            document.getElementById("editor").value = defaultText;
+            let previewElement = document.getElementById("preview");
+            previewElement.innerHTML = marked.parse(defaultText);
+        }
+        function updatePreview(){
+            let previewElement = document.getElementById("preview");
+            let editorValue = document.getElementById("editor").value;
+            previewElement.innerHTML = marked.parse(editorValue);
+        }
+    </script>
+</body>
+
+</html>
+
+<!-- https://www.youtube.com/watch?v=SMwgbtCDrLw&list=PL3vpzVxKa3Pi6_YJy3Zkd4d7cTETROeBh&index=2 -->
+<!-- (49:18) -->
